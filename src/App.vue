@@ -33,4 +33,10 @@
       .tab-item
           flex: 1
           text-align: center
+          font-size: 14px
+          color: rgb(77, 85, 93)
+      .tab-item .router-link-active
+          color: rgb(240, 20, 20)
+      .tab-item a
+          display: block
 </style>
