@@ -15,12 +15,35 @@
     <router-view></router-view>
   </div>
 </template>
-<script>
+<script type="text/ecmascript-6">
   import header from './components/header/header.vue';
+
+  const errOk = 0;
+
   export default {
+
+    data() {
+      return {
+        seller: {
+
+        }
+      };
+    },
+
+    created: function() {
+      this.$http.get('./api/seller').then(response => {
+          response = response.body;
+        if (response.errno === errOk) {
+          this.seller = response.data;
+         // console.log(this.seller);
+        }
+      });
+    },
+
     components: {
       'v-header': header
     }
+
   };
 </script>
 

@@ -1,18 +1,31 @@
 <template>
   <div class=header>
-    {{msg}}
+    <div class="content-wrapper">
+      <div class="avatar">
+        <img width="64" height="64" :src="seller.avatar">
+      </div>
+      <div class="content">
+        <div class="title"></div>
+        <div class="description"></div>
+        <div class="support"></div>
+      </div>
+    </div>
+    <div class="bulletin-wrapper"></div>
+    <div class="background"></div>
+    <div></div>
   </div>
 </template>
 
-<script>
-  export default {
-    name: 'header',
-    data () {
-      return {
-        msg: '我是头部'
-      };
-    }
-  };
+<script type="text/ecmascript-6">
+   module.exports = {
+      props: [seller],
+      data() {
+        return {
+
+        };
+      }
+    };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
