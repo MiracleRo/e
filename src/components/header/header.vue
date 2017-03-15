@@ -17,14 +17,15 @@
 </template>
 
 <script type="text/ecmascript-6">
-   module.exports = {
-      props: [seller],
-      data() {
-        return {
-
-        };
+  export default {
+    props: {
+      seller: {
+       type: Object
       }
-    };
+    }
+  };
+
+  // 接收seller数据;
 
 </script>
 

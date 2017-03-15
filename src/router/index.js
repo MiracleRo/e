@@ -26,3 +26,5 @@ export default new Router({
   ]
 
 });
+
+// 导出路由 设置路由及其组件;

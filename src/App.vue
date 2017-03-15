@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-header></v-header>
+    <v-header :seller="seller"></v-header>
     <div class="tab border-1px">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
@@ -18,15 +18,14 @@
 <script type="text/ecmascript-6">
   import header from './components/header/header.vue';
 
+  // 导入header组件;
+
   const errOk = 0;
 
   export default {
-
     data() {
       return {
-        seller: {
-
-        }
+        seller: {}
       };
     },
 
@@ -35,15 +34,16 @@
           response = response.body;
         if (response.errno === errOk) {
           this.seller = response.data;
-         // console.log(this.seller);
+        //  console.log(this.seller);
         }
       });
     },
 
+    // 在组件渲染之前获取后台数据;
+
     components: {
       'v-header': header
     }
-
   };
 </script>
 
