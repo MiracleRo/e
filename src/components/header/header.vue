@@ -20,22 +20,36 @@
           </span>
         </div>
       </div>
-      <div v-if="seller.supports" class="support-count">
+      <div v-if="seller.supports" class="support-count" @click='showDetail'>
         <span class="count">{{seller.supports.length}}个</span>
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
-    <div class="bulletin-wrapper">
+    <div class="bulletin-wrapper" @click='showDetail'>
       <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
       <i class="icon-keyboard_arrow_right"></i>
     </div>
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
+    <div class='detail' v-show='detailShow'>
+      <div class="detail-wrapper clear-fix">
+        <div class="detail-main">
+          <h1 class="name">
+            {{seller.name}}
+          </h1>
+          <star :size="48" :score="seller.score"></star>
+        </div>
+      </div>
+      <div class="detail-close">
+        <i class="icon-close"></i>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import star from '../star/star';
   export default {
     props: {
       seller: {
@@ -43,9 +57,24 @@
       }
     },
 
-    created: function() {
-      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+  data() {
+    return {
+      detailShow: false
+    };
+  },
+
+  methods: {
+    showDetail() {
+      this.detailShow = true;
     }
+  },
+
+  created: function() {
+      this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+  },
+  components: {
+    star
+  }
   };
   // 接收seller数据;
   // 通过后台数据type动态绑定class
@@ -60,6 +89,7 @@
     color: #fff
     background-color: rgba(7, 17, 27, 0.5)
     position: relative
+    overflow: hidden
     .content-wrapper
       position: relative
       padding: 24px 12px 18px 24px
@@ -163,5 +193,33 @@
       width: 100%
       height: 100%
       z-index: -1
-      -webkit-filter: blur(10px);
+      -webkit-filter: blur(10px)
+    .detail
+      position: fixed
+      top: 0
+      left: 0
+      z-index: 100
+      height: 100%
+      width: 100%
+      overflow: auto
+      background-color: rgba(7, 17, 27, 0.8)
+      .detail-wrapper
+        min-height: 100%
+        width: 100%
+        .detail-main
+          font-size: 32px
+          margin-top: 64px
+          padding-bottom: 64px
+          .name
+            font-size: 16px
+            line-height: 16px
+            font-weight: 700
+            text-align: center
+      .detail-close
+        position: relative
+        width: 32px
+        height: 32px
+        margin: -64px auto 0 auto
+        clear: both
+        font-size: 32px
 </style>
