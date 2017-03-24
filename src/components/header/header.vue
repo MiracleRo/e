@@ -68,7 +68,7 @@
         <div class="detail-close" @click="hideDetail">
           <i class="icon-close"></i>
         </div>
-      </div trans>
+      </div>
     </transition>
     <!--<div class='detail' v-show='detailShow' transition="fade">-->
       <!--<div class="detail-wrapper clear-fix">-->
