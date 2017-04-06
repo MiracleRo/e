@@ -59,9 +59,9 @@
               <div class="line"></div>
             </div>
             <div class="bulletin">
-              <div class="bulletin-text">
+              <p class="bulletin-text">
                 {{seller.bulletin}}
-              </div>
+              </p>
             </div>
           </div>
         </div>
@@ -337,8 +337,7 @@
             width: 80%
             margin: 0 auto
             .bulletin-text
-              font-size: 14px
-              font-weight: 200
+              font-size: 12px
               line-height: 24px
               padding: 0 12px
       .detail-close

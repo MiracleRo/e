@@ -36,12 +36,14 @@
         </li>
       </ul>
     </div>
+    <shopcart :delivery-price="seller.deliveryPrice"
+              :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
-
+  import shopcart from '../shopcart/shopcart';
   const errOk = 0;
 
   export default{
@@ -114,6 +116,9 @@
           this.listHeight.push(height);
         }
       }
+    },
+    components: {
+      shopcart
     }
   };
 </script>
@@ -200,7 +205,7 @@
            margin: 2px 0 8px 0
           .desc, .extra
            font-size: 10px
-           height: 10px
+           line-height: 10px
            color: rgb(147, 153, 159)
           .desc
            margin-bottom: 8px
