@@ -1,8 +1,8 @@
 <template>
-  <div class="foods">
+  <div class="goods">
     <div class="menu-wrapper" ref="menuWrapper">
       <ul>
-        <li class="menu-item" v-for="(item, index) in foods" :class="{'current':currentIndex===index}"
+        <li class="menu-item" v-for="(item, index) in goods" :class="{'current':currentIndex===index}"
         @click='selectMenu(index, $event)'>
           <span class="text border-1px">
             <span v-show="item.type>-1" class="icon" :class="classMap[item.type]">
@@ -14,21 +14,24 @@
     </div>
     <div class="foods-wrapper" ref="foodWrapper">
       <ul>
-        <li class="item food-list-hook" v-for="item in foods">
+        <li class="item food-list-hook" v-for="item in goods">
           <h1 class="title">{{item.name}}</h1>
             <ul>
-              <li class="food-item" v-for="foods in item.foods">
+              <li class="food-item" v-for="food in item.foods">
                 <div class="icon">
-                  <img :src="foods.icon" height="57" width="57">
+                  <img :src="food.icon" height="57" width="57">
                 </div>
                 <div class="content">
-                  <h2 class="name">{{foods.name}}</h2>
-                  <p class="desc" v-show="foods.description">{{foods.description}}</p>
+                  <h2 class="name">{{food.name}}</h2>
+                  <p class="desc" v-show="food.description">{{food.description}}</p>
                   <div class="extra">
-                    <span class="count">月售{{foods.sellCount}}份</span><span class="rating">好评率{{foods.rating}}%</span>
+                    <span class="count">月售{{food.sellCount}}份</span><span class="rating">好评率{{food.rating}}%</span>
                   </div>
                   <div class="price">
-                    <span class="now">￥{{foods.price}}</span><span class="old" v-show="foods.oldPrice">￥{{foods.oldPrice}}</span>
+                    <span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
+                  </div>
+                  <div class="control-wrapper">
+                    <cartcontrol :food="food"></cartcontrol>
                   </div>
                 </div>
               </li>
@@ -36,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :delivery-price="seller.deliveryPrice"
+    <shopcart :selectFoods="selectFoods" :delivery-price="seller.deliveryPrice"
               :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
@@ -44,6 +47,7 @@
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
   import shopcart from '../shopcart/shopcart';
+  import cartcontrol from '../cartcontrol/cartcontrol';
   const errOk = 0;
 
   export default{
@@ -54,7 +58,7 @@
     },
     data() {
       return {
-        foods: [],
+        goods: [],
         listHeight: [],
         scrollY: 0
       };
@@ -69,6 +73,17 @@
             }
         }
         return 0;
+      },
+      selectFoods() {
+        let foods = [];
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              foods.push(food);
+            }
+          });
+        });
+        return foods;
       }
     },
     created: function() {
@@ -76,7 +91,7 @@
       this.$http.get('/api/goods').then(response => {
         response = response.body;
         if (response.errno === errOk) {
-          this.foods = response.data;
+          this.goods = response.data;
           this.$nextTick(() => {
              this._initScroll();
              this._calculateHeight();
@@ -99,6 +114,7 @@
         });
 
         this.foodsScroll = new BScroll(this.$refs.foodWrapper, {
+          click: true,
           probeType: 3
         });
 
@@ -118,7 +134,8 @@
       }
     },
     components: {
-      shopcart
+      shopcart,
+      cartcontrol
     }
   };
 </script>
@@ -126,7 +143,7 @@
 
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixin.styl";
-   .foods
+   .goods
     display: flex
     position: absolute
     top: 174px
@@ -225,4 +242,8 @@
              text-decoration: line-through
              font-size: 10px
              color: rgb(146, 153, 159)
+          .control-wrapper
+            position: absolute
+            right: 0
+            bottom: 12px
 </style>
