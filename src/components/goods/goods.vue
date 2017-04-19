@@ -39,7 +39,7 @@
         </li>
       </ul>
     </div>
-    <shopcart :selectFoods="selectFoods" :delivery-price="seller.deliveryPrice"
+    <shopcart ref='shopcart' :selectFoods="selectFoods" :delivery-price="seller.deliveryPrice"
               :min-price="seller.minPrice"></shopcart>
   </div>
 </template>
@@ -48,6 +48,7 @@
   import BScroll from 'better-scroll';
   import shopcart from '../shopcart/shopcart';
   import cartcontrol from '../cartcontrol/cartcontrol';
+
   const errOk = 0;
 
   export default{
@@ -131,6 +132,12 @@
           height += item.clientHeight;
           this.listHeight.push(height);
         }
+      },
+      _drop(target) {
+        // 体验优化,异步执行下落动画
+        this.$nextTick(() => {
+          this.$refs.shopcart.drop(target);
+        });
       }
     },
     components: {
@@ -195,7 +202,7 @@
       flex: 1
       .title
         font-size: 12px
-        heightL 26px
+        height: 26px
         border-left: 2px solid #d9dde1
         color: rgb(147, 153, 159)
         line-height: 26px

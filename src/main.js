@@ -12,7 +12,10 @@ Vue.use(VueResource);
 
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App),
+  data: {
+    eventHub: new Vue()
+  }
 }).$mount('#app');
 
 // 使用vue-router 标注渲染部分;
