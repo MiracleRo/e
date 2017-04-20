@@ -1,23 +1,25 @@
 <template>
-  <div class="goods">
-    <div class="menu-wrapper" ref="menuWrapper">
-      <ul>
-        <li class="menu-item" v-for="(item, index) in goods" :class="{'current':currentIndex===index}"
-        @click='selectMenu(index, $event)'>
+  <div>
+    <div class="goods">
+      <div class="menu-wrapper" ref="menuWrapper">
+        <ul>
+          <li class="menu-item" v-for="(item, index) in goods" :class="{'current':currentIndex===index}"
+              @click='selectMenu(index, $event)'>
           <span class="text border-1px">
             <span v-show="item.type>-1" class="icon" :class="classMap[item.type]">
             </span>
             {{item.name}}
           </span>
-        </li>
-      </ul>
-    </div>
-    <div class="foods-wrapper" ref="foodWrapper">
-      <ul>
-        <li class="item food-list-hook" v-for="item in goods">
-          <h1 class="title">{{item.name}}</h1>
+          </li>
+        </ul>
+      </div>
+      <div class="foods-wrapper" ref="foodWrapper">
+        <ul>
+          <li class="item food-list-hook" v-for="item in goods">
+            <h1 class="title">{{item.name}}</h1>
             <ul>
-              <li class="food-item" v-for="food in item.foods">
+              <li class="food-item" v-for="food in item.foods"
+                  @click="selectFood(food,$event)">
                 <div class="icon">
                   <img :src="food.icon" height="57" width="57">
                 </div>
@@ -36,18 +38,23 @@
                 </div>
               </li>
             </ul>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
+      <shopcart ref='shopcart' :selectFoods="selectFoods" :delivery-price="seller.deliveryPrice"
+                :min-price="seller.minPrice"></shopcart>
+
     </div>
-    <shopcart ref='shopcart' :selectFoods="selectFoods" :delivery-price="seller.deliveryPrice"
-              :min-price="seller.minPrice"></shopcart>
+    <food ref="food" :food="selectedFood"></food>
   </div>
+
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll';
   import shopcart from '../shopcart/shopcart';
   import cartcontrol from '../cartcontrol/cartcontrol';
+  import food from '../food/food';
 
   const errOk = 0;
 
@@ -61,7 +68,8 @@
       return {
         goods: [],
         listHeight: [],
-        scrollY: 0
+        scrollY: 0,
+        selectedFood: {}
       };
     },
     computed: {
@@ -138,11 +146,19 @@
         this.$nextTick(() => {
           this.$refs.shopcart.drop(target);
         });
+      },
+      selectFood(food, event) {
+        if (!event._constructed) {
+          return;
+        }
+        this.selectedFood = food;
+        this.$refs.food.show();
       }
     },
     components: {
       shopcart,
-      cartcontrol
+      cartcontrol,
+      food
     }
   };
 </script>
