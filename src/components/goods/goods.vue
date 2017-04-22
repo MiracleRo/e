@@ -18,7 +18,7 @@
           <li class="item food-list-hook" v-for="item in goods">
             <h1 class="title">{{item.name}}</h1>
             <ul>
-              <li class="food-item" v-for="food in item.foods"
+              <li class="food-item border-1px" v-for="food in item.foods"
                   @click="selectFood(food,$event)">
                 <div class="icon">
                   <img :src="food.icon" height="57" width="57">
