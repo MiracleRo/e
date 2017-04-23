@@ -20,7 +20,7 @@ new Vue({
 
 // 使用vue-router 标注渲染部分;
 
-// router.push('./goods');
+ router.push('./goods');
 
 // 使用'./goods'为默认路由;
 /* eslint-disable no-new */
