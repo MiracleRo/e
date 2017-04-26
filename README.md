@@ -1,7 +1,7 @@
 # Vue2.0实现饿了么点餐页
 
-> A Vue.js project
-
+感谢ustbhuangyi老师的[课程](http://coding.imooc.com/class/74.html)
+以及[Alex Chen](https://github.com/cccyb)和[Simon Zhang](https://github.com/SimonZhangITer)两位同学的代码参考 谢谢~
 ## Build Setup
 
 ``` bash
@@ -15,4 +15,4 @@ npm run dev
 npm run build ```
 
 
-##感谢ustbhuangyi老师的[课程](http://coding.imooc.com/class/74.html)
+
