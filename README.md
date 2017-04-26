@@ -2,7 +2,7 @@
 
 感谢ustbhuangyi老师的[课程](http://coding.imooc.com/class/74.html)
 以及[Alex Chen](https://github.com/cccyb)和[Simon Zhang](https://github.com/SimonZhangITer)两位同学的代码参考 谢谢~
-## Build Setup
+## 使用方式
 
 ``` bash
 # 安装依赖
